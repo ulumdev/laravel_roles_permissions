@@ -13,7 +13,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::latest()->paginate(2)->withQueryString();
+        $articles = Article::latest()->paginate(10)->withQueryString();
         return view('articles.index', [
             'articles' => $articles,
         ]);
