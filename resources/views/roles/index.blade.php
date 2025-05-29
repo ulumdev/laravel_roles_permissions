@@ -35,7 +35,7 @@
                                             @if ($role->permissions->isNotEmpty())
                                                 @foreach ($role->permissions as $permission)
                                                     <span
-                                                        class="inline-block bg-gray-100 text-gray-700 rounded-sm px-2 py-1 text-xs font-semibold mr-2">
+                                                        class="inline-block bg-gray-100 text-gray-700 rounded-sm px-2 py-1 text-xs font-semibold mr-2 mb-1">
                                                         {{ $permission->name }}
                                                     </span>
                                                 @endforeach
