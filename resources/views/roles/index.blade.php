@@ -21,7 +21,7 @@
                                 <th class="px-5 py-4 text-left" width="5%">#</th>
                                 <th class="px-5 py-4 text-left">Name</th>
                                 <th class="px-5 py-4 text-left">Permissions</th>
-                                <th class="px-5 py-4 text-left" width="20%">Created At</th>
+                                <th class="px-5 py-4 text-left" width="15%">Created At</th>
                                 <th class="px-5 py-4 text-center" width="15%">Actions</th>
                             </tr>
                         </thead>
@@ -57,7 +57,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="4" class="px-5 py-4 text-center text-gray-500">No roles found!
+                                    <td colspan="5" class="px-5 py-4 text-center text-gray-500">No roles found!
                                     </td>
                                 </tr>
                             @endif
