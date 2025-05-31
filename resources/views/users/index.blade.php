@@ -4,9 +4,11 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Users | List') }}
             </h2>
-            <a href="{{ route('users.create') }}"
-                class="ml-auto btn bg-slate-700 hover:bg-slate-600 text-sm text-white rounded-md px-3 py-2">Create
-                User</a>
+            @can('create users')
+                <a href="{{ route('users.create') }}"
+                    class="ml-auto btn bg-slate-700 hover:bg-slate-600 text-sm text-white rounded-md px-3 py-2">Create
+                    User</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -48,12 +50,20 @@
                                         <td class="px-5 py-3 text-left">
                                             {{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}</td>
                                         <td class="px-5 py-3 text-center">
-                                            <a href="{{ route('users.edit', $user->id) }}"
-                                                class="bg-slate-700 text-sm text-white rounded-md px-3 py-2 hover:bg-slate-600 mr-2">
-                                                Edit
-                                            </a>
-                                            <a href="javascript:void(0)" onclick="deleteUser({{ $user->id }})"
-                                                class="bg-red-600 text-white text-sm rounded-md px-3 py-2 hover:bg-red-500">Delete</a>
+                                            @canany(['edit users', 'delete users'])
+                                                @can('edit users')
+                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                        class="bg-slate-700 text-sm text-white rounded-md px-3 py-2 hover:bg-slate-600 mr-2">
+                                                        Edit
+                                                    </a>
+                                                @endcan
+                                                @can('delete users')
+                                                    <a href="javascript:void(0)" onclick="deleteUser({{ $user->id }})"
+                                                        class="bg-red-600 text-white text-sm rounded-md px-3 py-2 hover:bg-red-500">Delete</a>
+                                                @endcan
+                                            @else
+                                                ---
+                                            @endcanany
                                         </td>
                                     </tr>
                                 @endforeach

@@ -4,9 +4,11 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Permissions | List') }}
             </h2>
-            <a href="{{ route('permissions.create') }}"
-                class="ml-auto btn bg-slate-700 hover:bg-slate-600 text-sm text-white rounded-md px-3 py-2">Create
-                Permission</a>
+            @can('create permissions')
+                <a href="{{ route('permissions.create') }}"
+                    class="ml-auto btn bg-slate-700 hover:bg-slate-600 text-sm text-white rounded-md px-3 py-2">Create
+                    Permission</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -33,13 +35,21 @@
                                         <td class="px-5 py-3 text-left">
                                             {{ \Carbon\Carbon::parse($permission->created_at)->format('d M Y') }}</td>
                                         <td class="px-5 py-3 text-center">
-                                            <a href="{{ route('permissions.edit', $permission->id) }}"
-                                                class="bg-slate-700 text-sm text-white rounded-md px-3 py-2 hover:bg-slate-600 mr-2">
-                                                Edit
-                                            </a>
-                                            <a href="javascript:void(0)"
-                                                onclick="deletePermission({{ $permission->id }})"
-                                                class="bg-red-600 text-white text-sm rounded-md px-3 py-2 hover:bg-red-500">Delete</a>
+                                            @canany(['edit permissions', 'delete permissions'])
+                                                @can('edit permissions')
+                                                    <a href="{{ route('permissions.edit', $permission->id) }}"
+                                                        class="bg-slate-700 text-sm text-white rounded-md px-3 py-2 hover:bg-slate-600 mr-2">
+                                                        Edit
+                                                    </a>
+                                                @endcan
+                                                @can('delete permissions')
+                                                    <a href="javascript:void(0)"
+                                                        onclick="deletePermission({{ $permission->id }})"
+                                                        class="bg-red-600 text-white text-sm rounded-md px-3 py-2 hover:bg-red-500">Delete</a>
+                                                @endcan
+                                            @else
+                                                ---
+                                            @endcanany
                                         </td>
                                     </tr>
                                 @endforeach

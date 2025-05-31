@@ -4,9 +4,11 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Articles | List') }}
             </h2>
-            <a href="{{ route('articles.create') }}"
-                class="ml-auto btn bg-slate-700 hover:bg-slate-600 text-sm text-white rounded-md px-3 py-2">Create
-                Article</a>
+            @can('create articles')
+                <a href="{{ route('articles.create') }}"
+                    class="ml-auto btn bg-slate-700 hover:bg-slate-600 text-sm text-white rounded-md px-3 py-2">Create
+                    Article</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -45,12 +47,20 @@
                                         <td class="px-5 py-3 text-left">
                                             {{ \Carbon\Carbon::parse($article->created_at)->format('d M Y') }}</td>
                                         <td class="px-5 py-3 text-center">
-                                            <a href="{{ route('articles.edit', $article->id) }}"
-                                                class="bg-slate-700 text-sm text-white rounded-md px-3 py-2 hover:bg-slate-600 mr-2">
-                                                Edit
-                                            </a>
-                                            <a href="javascript:void(0)" onclick="deleteArticle({{ $article->id }})"
-                                                class="bg-red-600 text-white text-sm rounded-md px-3 py-2 hover:bg-red-500">Delete</a>
+                                            @canany(['edit articles', 'delete articles'])
+                                                @can('edit articles')
+                                                    <a href="{{ route('articles.edit', $article->id) }}"
+                                                        class="bg-slate-700 text-sm text-white rounded-md px-3 py-2 hover:bg-slate-600 mr-2">
+                                                        Edit
+                                                    </a>
+                                                @endcan
+                                                @can('delete articles')
+                                                    <a href="javascript:void(0)" onclick="deleteArticle({{ $article->id }})"
+                                                        class="bg-red-600 text-white text-sm rounded-md px-3 py-2 hover:bg-red-500">Delete</a>
+                                                @endcan
+                                            @else
+                                                ---
+                                            @endcanany
                                         </td>
                                     </tr>
                                 @endforeach
