@@ -13,6 +13,7 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         // Create roles
+        \Spatie\Permission\Models\Role::create(['name' => 'Super Admin']);
         \Spatie\Permission\Models\Role::create(['name' => 'Admin']);
         \Spatie\Permission\Models\Role::create(['name' => 'Editor']);
         \Spatie\Permission\Models\Role::create(['name' => 'Viewer']);
